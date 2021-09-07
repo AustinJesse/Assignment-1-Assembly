@@ -98,10 +98,14 @@ void decimalToFloatConversion(double numberInserted, vector<int>& answerToSelect
 		remaindersFromTwo.push_back(noDecimalPoint);
 	}
 
-	for (int j = remaindersFromOne.size() - 1; j >= 0; j--) {
+	for (int j = 0; j < remaindersFromOne.size(); j++) {
 		remainderHolder = remaindersFromOne[j];
 		stepOneAndTwoRemainders.push_back(remainderHolder);
 	}
+	/*for (int j = remaindersFromOne.size() - 1; j >= 0; j--) {
+		remainderHolder = remaindersFromOne[j];
+		stepOneAndTwoRemainders.push_back(remainderHolder);
+	}*/
 
 	for (int j = 0; j < remaindersFromTwo.size(); j++) {
 		remainderHolder = remaindersFromTwo[j];
