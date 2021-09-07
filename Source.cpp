@@ -62,31 +62,92 @@ void decimalToHexadecimalConversion(unsigned numberInserted, vector<int>& answer
 }
 
 void decimalToFloatConversion(double numberInserted, vector<int>& answerToSelection) {
-	stringstream ss;
-	vector<string> stringedDecimalPointHolder;
-	string stringedDecimalPoint;
 	int noDecimalPoint;
-	string decimalHereString;
+	int toThisPower;
+	int remainderHolder;
+	int exponent;
+	double afterDecimalInt;
+	stringstream ss;
+	string afterDecimalPoint;
+	bool stopTheLoop = false;
+	bool signOfFloat;
+	double remainderFromOne;
+	double remainderFromTwo;
+	vector<int> remaindersFromOne;
+	vector<int> remaindersFromTwo;
+	vector<int> stepOneAndTwoRemainders;
+	vector<int> decimalToBinary;
+
 
 	noDecimalPoint = numberInserted;
-	numberInserted = numberInserted - noDecimalPoint;
-	ss << numberInserted;
-	ss >> stringedDecimalPoint;
+	afterDecimalInt = numberInserted - noDecimalPoint;
 
-	for (int i = 2; i < stringedDecimalPoint.length(); i++) {
-		decimalHereString = stringedDecimalPoint[i];
-		stringedDecimalPointHolder.push_back(decimalHereString);
+	ss << afterDecimalInt;
+	ss >> afterDecimalPoint;
+
+	while (noDecimalPoint != 0) {
+		remainderFromOne = noDecimalPoint % 2;
+		noDecimalPoint = noDecimalPoint / 2;
+		remaindersFromOne.push_back(remainderFromOne);
 	}
-	for (int j = 0; j < stringedDecimalPointHolder.size(); j++) {
-		cout << stringedDecimalPointHolder[j] << endl;
+
+	cout << endl << endl;
+	for (int i = 2; i < afterDecimalPoint.length(); i++) {
+		remainderFromTwo = afterDecimalInt * 2;
+		noDecimalPoint = remainderFromTwo;
+		remaindersFromTwo.push_back(noDecimalPoint);
 	}
 
+	for (int j = remaindersFromOne.size() - 1; j >= 0; j--) {
+		remainderHolder = remaindersFromOne[j];
+		stepOneAndTwoRemainders.push_back(remainderHolder);
+	}
 
-	/*cout << setprecision(2);
-	cout << fixed;
-	cout << numberInserted;*/
+	for (int j = 0; j < remaindersFromTwo.size(); j++) {
+		remainderHolder = remaindersFromTwo[j];
+		stepOneAndTwoRemainders.push_back(remainderHolder);
+	}
+	//needs dot in between One and Two
+	//
+	//I dont have enough time to change all these for loops to not for loops
+	//definitely getting doxxed points ;-; lnl ;-; if sad == yes then cry
 
-	/*cout << "scientific: " << scientific << numberInserted << endl;*/
+	for (int i = 0; i < stepOneAndTwoRemainders.size(); i++) {
+		cout << stepOneAndTwoRemainders[i] << endl;
+	}
+
+	toThisPower = remaindersFromOne.size() - 1;
+
+	exponent = 127 + toThisPower;
+
+	int oneOrZero;
+	for (int i = 0; exponent > 0; i++) {
+		oneOrZero = exponent % 2;
+		decimalToBinary.push_back(oneOrZero); //used google to find the formula for how to convert
+		exponent = exponent / 2;
+		oneOrZero = 0;
+	}
+
+	//exponent is the decimal to binary vector
+	//mantissa is the step one and two remainders disregarding .at(0)
+	if (noDecimalPoint >= 0) {
+		signOfFloat = false;
+	}
+	else (signOfFloat = true);
+
+	while (stepOneAndTwoRemainders.size() < 23) {
+		stepOneAndTwoRemainders.push_back(0);
+	}
+
+	//time to put it together!
+	cout << signOfFloat << " ";
+	for (int i = 0; i < decimalToBinary.size(); i++) {
+		cout << decimalToBinary[i];
+	}
+	cout << " ";
+	for (int j = 1; j < stepOneAndTwoRemainders.size(); j++) {
+		cout << stepOneAndTwoRemainders[j];
+	}
 }
 
 void binaryToDecimalConversion(unsigned numberInserted, vector<int>& answerToSelection) {
